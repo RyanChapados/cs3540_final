@@ -21,7 +21,6 @@ public class BulletBehavior : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other.transform.name);
         // Ensures the bullet does not hit the player
         if (!other.transform.CompareTag("Player"))
         {
