@@ -10,11 +10,12 @@ public class WeaponData : ScriptableObject
 
     [Header("Shooting")]
     public float damage;
-    public Vector3 muzzleLocation;
-
-    [Header("Reloading")]
     public int currentAmmo;
     public int magSize;
+
+    [Header("Locations")]
+    public Vector3 muzzleLocation;
+    public Vector3 holdLocation;
 
     [Tooltip("In RPM")] public float fireRate;
     [Tooltip("In seconds")] public float reloadTime;

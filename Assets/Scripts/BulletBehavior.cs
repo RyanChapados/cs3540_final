@@ -43,8 +43,8 @@ public class BulletBehavior : MonoBehaviour
 
                 // Creates a particle effect where the bullect impacted
                 gameObject.SetActive(false);
-                Instantiate(bullectImpact, transform.position, transform.rotation);
-
+                GameObject impact = Instantiate(bullectImpact, transform.position, transform.rotation);
+                impact.transform.SetParent(other.transform);
             }
         }
     }
