@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 5046636759009460845, guid: 42c387324d38e324a9cc512384144e82, type: 3}
-  projectileSpeed: 100
+  projectileSpeed: 40
   cam: {fileID: 0}
 --- !u!65 &7893870858417980459
 BoxCollider:
