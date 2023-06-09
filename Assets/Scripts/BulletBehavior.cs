@@ -5,7 +5,10 @@ using UnityEngine;
 public class BulletBehavior : MonoBehaviour
 {
     public float destroyDuration = 5f;
-    public GameObject bullectImpact;
+
+    [Header("Impact Effects")]
+    public GameObject groundImpact;
+    public GameObject zombieImpact;
 
     // Start is called before the first frame update
     void Start()
@@ -13,39 +16,42 @@ public class BulletBehavior : MonoBehaviour
         Destroy(gameObject, destroyDuration);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnCollisionEnter(Collision other)
     {
         // Ensures the bullet does not hit the player
         if (!other.transform.CompareTag("Player"))
         {
-            if (other.transform.CompareTag("Enemy"))
-            {
-                // Do damage to the enemy
-            }
-            else
-            {
-                // Stops the bullet completely on impact
-                Rigidbody rb = GetComponent<Rigidbody>();
-                rb.velocity = Vector3.zero;
+            StopBullet();
+            // Finds a vector normal to the surface at the point of collision
+            ContactPoint contact = other.contacts[0];
+            Vector3 surfaceNormal = contact.normal;
 
-                // Finds a vector normal to the surface at the point of collision
-                ContactPoint contact = other.contacts[0];
-                Vector3 surfaceNormal = contact.normal;
+            // Makes the bullet look in the direction of the normal vector
+            transform.rotation = Quaternion.LookRotation(surfaceNormal);
 
-                // Makes the bullet look in the direction of the normal vector
-                transform.rotation = Quaternion.LookRotation(surfaceNormal);
-
-                // Creates a particle effect where the bullect impacted
-                gameObject.SetActive(false);
-                GameObject impact = Instantiate(bullectImpact, transform.position, transform.rotation);
-                impact.transform.SetParent(other.transform);
-            }
+            // Creates a particle effect where the bullect impacted
+            GameObject impact = Instantiate(groundImpact, transform.position, transform.rotation);
+            impact.transform.SetParent(other.transform);
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            StopBullet();
+
+            // Creates a particle effect where the bullect impacted
+            GameObject impact = Instantiate(zombieImpact, transform.position, transform.rotation);
+            //impact.transform.SetParent(other.transform);
+        }
+    }
+
+    private void StopBullet()
+    {
+        // Stops the bullet completely on impact
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
+        gameObject.SetActive(false);
     }
 }
