@@ -21,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
     private float lerpTimer = 0f;
     private AudioSource damageSource;
     int currentHealth;
+    private bool isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,12 +30,13 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = startingHealth;
         healthSlider.value = currentHealth;
         damageSource = GetComponent<AudioSource>();
+        isDead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-       if (LevelManager.isGameOver)
+       if (isDead)
         {
             lerpTimer += Time.deltaTime;
 
@@ -79,6 +81,7 @@ public class PlayerHealth : MonoBehaviour
 
     void PlayerDies()
     {
+        isDead = true;
         LevelManager.isGameOver = true;
         AudioSource.PlayClipAtPoint(deadSFX, transform.position);
         GetComponent<Animator>().SetTrigger("playerDeath");

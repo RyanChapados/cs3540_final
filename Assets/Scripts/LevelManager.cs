@@ -17,12 +17,9 @@ public class LevelManager : MonoBehaviour
     // Camera AudioSource to play the audio to
     public AudioSource cameraAudioSource;
 
-    // Players running score count
-    public int score;
-    public Text scoreText;
-
     // Text to appear when a level is beat or lost
     public Text gameText;
+    public string nextLevel;
 
 
     void Start()
@@ -53,13 +50,19 @@ public class LevelManager : MonoBehaviour
     public void LevelBeat()
     {
         isGameOver = true;
-        gameText.text = "You Win";
         gameText.color = Color.green;
         gameText.gameObject.SetActive(true);
 
-        cameraAudioSource.PlayOneShot(gameWonSFX);
-
-        Invoke("LoadNextLevel", 2);
+        // Sets the game text to the correct value, and loads the next level if there is one
+        if (!string.IsNullOrEmpty(nextLevel))
+        {
+            gameText.text = "LEVEL COMPLETE!";
+            Invoke("LoadNextLevel", 3.5f);
+        }
+        else
+        {
+            gameText.text = "YOU WIN!";
+        }
     }
 
     // Loads the next scene using the SceneManager
@@ -77,12 +80,9 @@ public class LevelManager : MonoBehaviour
     }
 
     // Initializes the scene's settings
-    // Level names in the switch need to match exactly!!!
     private void initializeSceneSettings()
     {
         isGameOver = false;
-        score = 0;
-        scoreText.text = score.ToString();
         gameText.gameObject.SetActive(false);
 
         switch (SceneManager.GetActiveScene().name)
