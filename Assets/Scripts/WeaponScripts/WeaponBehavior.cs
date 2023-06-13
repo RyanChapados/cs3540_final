@@ -11,6 +11,7 @@ public class WeaponBehavior : MonoBehaviour, IInteractable
     public AudioClip fireSFX;
     public AudioClip reloadSFX;
     public AudioClip emptySFX;
+    public float emptyCooldown = 0.5f;
 
     [Header("GameObjects")]
     public GameObject muzzleFlash;
@@ -42,15 +43,20 @@ public class WeaponBehavior : MonoBehaviour, IInteractable
             timeSinceLastShot += Time.deltaTime;
 
             // Fires the weapon if it has not been fired
-            if (Input.GetButtonDown("Fire1") && CanShoot())
+            if (Input.GetButton("Fire1") && CanShoot())
             {
                 if (WeaponEmpty())
                 {
-                    AudioSource.PlayClipAtPoint(emptySFX, cam.position);
+                    if (timeSinceLastShot > emptyCooldown)
+                    {
+                        AudioSource.PlayClipAtPoint(emptySFX, cam.position);
+                        timeSinceLastShot = 0f;
+                    }
                 }
                 else
                 {
                     Shoot();
+                    KickBack();
                 }
             }
 
@@ -119,5 +125,32 @@ public class WeaponBehavior : MonoBehaviour, IInteractable
         weaponData.currentAmmo = weaponData.magSize;
 
         weaponData.reloading = false;
+    }
+
+    private void KickBack()
+    {
+        // Rotate the gun by the kickback angle around its local X-axis
+        Quaternion kickbackRotation = Quaternion.Euler(-Random.Range(weaponData.kickBack-3, weaponData.kickBack+3), 0f, 0f);
+        transform.localRotation *= kickbackRotation;
+
+        // Reset the gun's rotation after the kickback duration
+        StartCoroutine(ResetRotationAfterDelay());
+    }
+
+    private System.Collections.IEnumerator ResetRotationAfterDelay()
+    {
+        // Lerp the gun's rotation back to the original rotation
+        Quaternion targetRotation = new Quaternion(0,0,0,1);
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime / weaponData.kickBackDuration;
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, t);
+            yield return null;
+        }
+
+        // Ensure the gun's rotation is set to the original rotation exactly
+        transform.localRotation = targetRotation;
     }
 }

@@ -5,19 +5,15 @@ using UnityEngine;
 public class PistolFire : MonoBehaviour, IFireWeapon
 {
     public GameObject projectilePrefab;
-    public float projectileSpeed = 100f;
     public Transform cam;
+
+    [Header("Weapon Info")]
+    public float projectileSpeed = 100f;
 
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main.transform;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Fire()

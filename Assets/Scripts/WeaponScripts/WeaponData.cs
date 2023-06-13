@@ -12,6 +12,8 @@ public class WeaponData : ScriptableObject
     public float damage;
     public int currentAmmo;
     public int magSize;
+    [Tooltip("In Degrees")] public float kickBack;
+    public float kickBackDuration;
 
     [Header("Locations")]
     public Vector3 muzzleLocation;

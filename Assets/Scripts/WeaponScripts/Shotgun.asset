@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Shotgun
   damage: 3
-  currentAmmo: 6
+  currentAmmo: 5
   magSize: 6
+  kickBack: 20
+  kickBackDuration: 0.3
   muzzleLocation: {x: 0.48, y: -0.35, z: 2}
   holdLocation: {x: 0.56, y: -0.24, z: 0.52}
   fireRate: 80

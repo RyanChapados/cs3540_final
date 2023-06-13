@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0b78cf70590d1f458cc0b3994da5bc9, type: 3}
-  m_Name: Pistol
+  m_Name: SMG
   m_EditorClassIdentifier: 
-  name: Pistol
-  damage: 10
-  currentAmmo: 10
-  magSize: 10
-  kickBack: 10
-  kickBackDuration: 0.13
-  muzzleLocation: {x: 0.77, y: -0.35, z: 1.39}
-  holdLocation: {x: 0.88, y: -0.12, z: 1.29}
-  fireRate: 200
-  reloadTime: 1.2
+  name: SMG
+  damage: 5
+  currentAmmo: 30
+  magSize: 30
+  kickBack: 3.5
+  kickBackDuration: 0.1
+  muzzleLocation: {x: 1.234, y: -0.5, z: 2.94}
+  holdLocation: {x: 1.22, y: -0.56, z: 1.64}
+  fireRate: 500
+  reloadTime: 1.5
   reloading: 0
