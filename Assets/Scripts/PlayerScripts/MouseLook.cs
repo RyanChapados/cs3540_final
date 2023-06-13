@@ -5,9 +5,11 @@ using UnityEngine;
 public class MouseLook : MonoBehaviour
 {
     public float sensitivity = 130f;
+    public GameObject interactIcon;
 
     float pitch = 0;
     Transform playerBody;
+    private GameObject currentIcon;
 
     // Start is called before the first frame update
     void Start()
@@ -40,15 +42,33 @@ public class MouseLook : MonoBehaviour
             transform.localRotation = Quaternion.Euler(pitch, 0, 0);
 
             // Allows the player to interact with objects
-            if (Input.GetKeyDown(KeyCode.E))
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 5f) && hit.collider.CompareTag("Interactable"))
             {
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.forward, out hit, 5f))
+                // Fixes a bug which causes the icon to stick to the held gun (WILL BREAK IF YOU ADD OTHER CHILDREN TO THE GUN)
+                if (hit.transform.childCount == 0)
+                    Destroy(currentIcon);
+
+                // Creates an icon if the player looks at an object
+                if (currentIcon == null || hit.transform.childCount == 0)
                 {
-                    if (hit.collider.CompareTag("Interactable"))
-                    {
-                        hit.collider.GetComponent<IInteractable>().Interact(GameObject.FindGameObjectWithTag("GunHolder").transform.GetChild(0));
-                    }
+                    Vector3 iconPosition = hit.transform.position - (hit.transform.position - transform.position).normalized * .3f;
+                    currentIcon = Instantiate(interactIcon, iconPosition, transform.rotation, hit.collider.transform);
+                }
+                        
+                // Handles interaction
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    hit.collider.GetComponent<IInteractable>().Interact(GameObject.FindGameObjectWithTag("GunHolder").transform.GetChild(0));
+                    Destroy(currentIcon);
+                }
+            }
+            else
+            {
+                // Destroys the icon if it is not null
+                if (currentIcon != null)
+                {
+                    Destroy(currentIcon);
                 }
             }
         }
