@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IFireWeapon
 {
     // Fires the weapon
-    void Fire();
+    void Fire(int damageAmount);
 }

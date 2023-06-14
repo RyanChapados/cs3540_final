@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: SMG
   damage: 5
-  currentAmmo: 30
-  magSize: 30
+  currentAmmo: 0
+  magSize: 24
   kickBack: 3.5
   kickBackDuration: 0.1
   muzzleLocation: {x: 1.234, y: -0.5, z: 2.94}
   holdLocation: {x: 1.22, y: -0.56, z: 1.64}
   fireRate: 500
   reloadTime: 1.5
-  reloading: 0
+  reloading: 1

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HandleReticle : MonoBehaviour
 {
-    public Image reticleImage;
+    public Sprite reticleImage;
 
     Color originalReticle;
 

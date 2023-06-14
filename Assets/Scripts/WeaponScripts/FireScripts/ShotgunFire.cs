@@ -20,21 +20,22 @@ public class ShotgunFire : MonoBehaviour, IFireWeapon
         cam = Camera.main.transform;
     }
 
-    public void Fire()
+    public void Fire(int damageAmount)
     {
         for (int i=0; i<bulletCount; i++)
         {
-            FireOne();
+            FireOne(damageAmount);
         }
     }
 
     // Fires a single shotgun bullet
-    private void FireOne()
+    private void FireOne(int damageAmount)
     {
         // Create a projectile, offsetting it a bit from the camera spawnpoint
         Vector3 placement = new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f));
         GameObject projectile = Instantiate(
             projectilePrefab, cam.position + cam.forward + placement, cam.rotation, GameObject.FindGameObjectWithTag("ProjectileParent").transform) as GameObject;
+        projectile.GetComponent<BulletBehavior>().SetDamage(damageAmount);
 
         // Get a reference to the rigidbody
         Rigidbody rb = projectile.GetComponent<Rigidbody>();

@@ -17,11 +17,12 @@ public class SMGFire : MonoBehaviour, IFireWeapon
         cam = Camera.main.transform;
     }
 
-    public void Fire()
+    public void Fire(int damageAmount)
     {
         // Create a projectile, offsetting it a bit from the camera spawnpoint
         GameObject projectile = Instantiate(
             projectilePrefab, cam.position + cam.forward, cam.rotation, GameObject.FindGameObjectWithTag("ProjectileParent").transform) as GameObject;
+        projectile.GetComponent<BulletBehavior>().SetDamage(damageAmount);
 
         // Get a reference to the rigidbody
         Rigidbody rb = projectile.GetComponent<Rigidbody>();

@@ -99,7 +99,7 @@ public class WeaponBehavior : MonoBehaviour, IInteractable
     // Fires the projectile
     private void Shoot()
     {
-        fireWeapon.Fire();
+        fireWeapon.Fire(weaponData.damage);
 
         // Creates a muzzle flash
         Instantiate(

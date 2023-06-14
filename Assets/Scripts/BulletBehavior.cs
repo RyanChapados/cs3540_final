@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletBehavior : MonoBehaviour
 {
     public float destroyDuration = 5f;
+    public int damage;
 
     [Header("Impact Effects")]
     public GameObject groundImpact;
@@ -14,6 +15,11 @@ public class BulletBehavior : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, destroyDuration);
+    }
+
+    public void SetDamage(int damageAmount)
+    {
+        damage = damageAmount;
     }
 
     void OnCollisionEnter(Collision other)
@@ -43,7 +49,9 @@ public class BulletBehavior : MonoBehaviour
 
             // Creates a particle effect where the bullect impacted
             GameObject impact = Instantiate(zombieImpact, transform.position, transform.rotation);
-            //impact.transform.SetParent(other.transform);
+
+            // Deals damage to the zombie
+            other.transform.GetComponent<ZombieHealth1>().TakeDamage(damage);
         }
     }
 

@@ -16,6 +16,7 @@ public class DogBehavior : MonoBehaviour
     private float distanceToPlayer;
     private Animator anim;
     NavMeshAgent agent;
+    private float winTime = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class DogBehavior : MonoBehaviour
 
         following = false;
         agent.speed = dogSpeed;
+        winTime = 0f;
 
         if (player == null)
         {
@@ -37,9 +39,10 @@ public class DogBehavior : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {    
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
+        
         // Begins following the player if the distance between them is less than 1
         if (distanceToPlayer < startFollowDist)
         {
@@ -54,12 +57,10 @@ public class DogBehavior : MonoBehaviour
         if (following)
         {
             UpdateFollowState();
-            //Debug.Log("Following");
         }
         else
         {
             UpdateIdleState();
-            //Debug.Log("Idle");
         }
     }
 
@@ -82,12 +83,24 @@ public class DogBehavior : MonoBehaviour
         agent.SetDestination(transform.position);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
+        
+        // Starts a timer to ensure the dog stays in contact with the ground for more than a second
         if (other.CompareTag("Ground"))
+        {
+            winTime += Time.deltaTime;
+        }
+
+        if (winTime > 0.1f)
         {
             FindObjectOfType<LevelManager>().LevelBeat();
         }
+    }
+
+    private void OnTriggerLeave(Collider other)
+    {
+        winTime = 0f;
     }
 
     private void FaceTarget(Vector3 target)

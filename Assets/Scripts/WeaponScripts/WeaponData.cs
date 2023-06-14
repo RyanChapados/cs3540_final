@@ -9,7 +9,7 @@ public class WeaponData : ScriptableObject
     public new string name;
 
     [Header("Shooting")]
-    public float damage;
+    public int damage;
     public int currentAmmo;
     public int magSize;
     [Tooltip("In Degrees")] public float kickBack;
