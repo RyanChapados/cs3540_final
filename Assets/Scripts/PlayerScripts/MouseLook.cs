@@ -14,6 +14,10 @@ public class MouseLook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Sets up sensitivity
+        if (PlayerPrefs.HasKey("sensitivity"))
+            sensitivity = PlayerPrefs.GetFloat("sensitivity");
+
         playerBody = transform.parent.transform;
 
         // Hide the cursor and lock it to the center of the screen
@@ -24,7 +28,7 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!LevelManager.isGameOver)
+        if (!LevelManager.isGameOver && !PauseMenu.isGamePaused)
         {
             // Get mouse input
             float moveX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;

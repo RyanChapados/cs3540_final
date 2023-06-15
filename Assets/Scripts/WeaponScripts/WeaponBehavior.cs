@@ -38,7 +38,7 @@ public class WeaponBehavior : MonoBehaviour, IInteractable
     // Update is called once per frame
     void Update()
     {
-        if (!LevelManager.isGameOver)
+        if (!LevelManager.isGameOver && !PauseMenu.isGamePaused)
         {
             timeSinceLastShot += Time.deltaTime;
 
