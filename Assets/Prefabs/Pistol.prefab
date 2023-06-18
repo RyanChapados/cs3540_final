@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7893870858417980459}
   m_Layer: 0
   m_Name: Pistol
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   fireSFX: {fileID: 8300000, guid: d891210e09b45f94ebda477336dd3186, type: 3}
   reloadSFX: {fileID: 8300000, guid: bbb0c6bc612e3c644b422afe9376e665, type: 3}
   emptySFX: {fileID: 8300000, guid: c962e25ce1324a54fb797b2338f700c2, type: 3}
+  emptyCooldown: 0.5
   muzzleFlash: {fileID: 100000, guid: 8eaaa4f553116f44b8459bc24201c514, type: 3}
   cam: {fileID: 0}
 --- !u!114 &4097728603836268644
@@ -117,8 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 5046636759009460845, guid: 42c387324d38e324a9cc512384144e82, type: 3}
-  projectileSpeed: 40
   cam: {fileID: 0}
+  projectileSpeed: 40
 --- !u!65 &7893870858417980459
 BoxCollider:
   m_ObjectHideFlags: 0

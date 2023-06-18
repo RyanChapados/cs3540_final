@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   name: Shotgun
-  damage: 3
-  currentAmmo: 0
+  damage: 5
+  currentAmmo: 6
   magSize: 6
   kickBack: 20
   kickBackDuration: 0.3

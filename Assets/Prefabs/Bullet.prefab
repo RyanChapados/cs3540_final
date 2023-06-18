@@ -128,5 +128,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyDuration: 2
+  damage: 0
   groundImpact: {fileID: 100006, guid: 94a130fb17f1cae4388a8fe1d8bd3055, type: 3}
   zombieImpact: {fileID: 93915091728407844, guid: 2fafbcde51fbc11409c2ac8e520e28b5, type: 3}

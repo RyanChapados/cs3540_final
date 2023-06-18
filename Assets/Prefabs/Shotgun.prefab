@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8794259057541642767}
   m_Layer: 0
   m_Name: Shotgun
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,9 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: b2027fbdbbf7b8a499cf0f5d9de53719, type: 2}
-  fireSFX: {fileID: 8300000, guid: d891210e09b45f94ebda477336dd3186, type: 3}
-  reloadSFX: {fileID: 8300000, guid: bbb0c6bc612e3c644b422afe9376e665, type: 3}
+  fireSFX: {fileID: 8300000, guid: 1dd0a7b278369d14d890804124ce3345, type: 3}
+  reloadSFX: {fileID: 8300000, guid: c2e00dd04d377d1458022ee6356f6d5b, type: 3}
   emptySFX: {fileID: 8300000, guid: c962e25ce1324a54fb797b2338f700c2, type: 3}
+  emptyCooldown: 0.5
   muzzleFlash: {fileID: 100000, guid: 03a4a1935a9f4454c861dfa0aa6df562, type: 3}
   cam: {fileID: 0}
 --- !u!114 &4098457896611800102

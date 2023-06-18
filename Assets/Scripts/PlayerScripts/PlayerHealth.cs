@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("SFX")]
     public AudioClip deadSFX;
-    //public AudioClip damageSFX;
+    public AudioClip damageSFX;
 
     [Header("Death Screen Effects")]
     public Color startColor;
@@ -19,7 +19,6 @@ public class PlayerHealth : MonoBehaviour
     public Image deathScreen;
 
     private float lerpTimer = 0f;
-    private AudioSource damageSource;
     int currentHealth;
     private bool isDead = false;
 
@@ -29,7 +28,6 @@ public class PlayerHealth : MonoBehaviour
         deathScreen.color = startColor;
         currentHealth = startingHealth;
         healthSlider.value = currentHealth;
-        damageSource = GetComponent<AudioSource>();
         isDead = false;
     }
 
@@ -56,16 +54,13 @@ public class PlayerHealth : MonoBehaviour
 
                 // Updates the slider when you take damage
                 healthSlider.value = currentHealth;
+                AudioSource.PlayClipAtPoint(damageSFX, transform.position);
             }
 
             // Causes the player to die if they have 0 health
             if (currentHealth <= 0)
                 PlayerDies();
         }
-        
-        // Checks again to ensure damage sound does not play after player death
-        if (!LevelManager.isGameOver)
-            damageSource.Play(0);
     }
 
     public void Heal(int healAmount)
@@ -82,7 +77,7 @@ public class PlayerHealth : MonoBehaviour
     void PlayerDies()
     {
         isDead = true;
-        LevelManager.isGameOver = true;
+        FindObjectOfType<LevelManager>().LevelLost();
         AudioSource.PlayClipAtPoint(deadSFX, transform.position);
         GetComponent<Animator>().SetTrigger("playerDeath");
     }
